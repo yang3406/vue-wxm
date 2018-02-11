@@ -1,0 +1,140 @@
+
+body {
+  font-size: 1.6rem;
+  font-weight: 500;
+  background-color:  #fff;
+}
+
+.outter-ul{
+  box-sizing: border-box;
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+}
+.outter-li{
+  box-sizing: border-box;
+  flex: 0 0 25%;
+  margin-top: 1.5rem;
+}
+
+.outter-li ul{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.outter-li ul li{
+  box-sizing: border-box;
+  margin-top: 0.3rem;
+}
+
+.outter-li ul li[name='message']{
+  position: relative;
+}
+
+/*消息页展示*/
+.popup_self_model .outter-ul{
+  padding-bottom: 1.2rem;
+}
+.popup_self_model .outter-li{
+  margin-top: 0.4rem;
+}
+
+.popup_self_model .readFlag{
+  flex:1 0 25%;
+}
+
+.popup_self_model .outter-li ul{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.popup_self_model .outter-li ul li{
+  margin-top: 0rem;
+  font-size: 1.4rem;
+}
+.popup_self_model .outter-ul ul li img{
+  width: 3rem;
+  height: 3rem;
+}
+.popTime{
+  font-size: 1.4rem;
+}
+
+.popTime .pop-time-height{
+  height: 3rem;
+  line-height: 3rem;
+}
+
+.popTime .btn-close{
+  color: #F49C49;
+  text-align: center;
+  border-top:1px solid #dedfe0;
+  letter-spacing: 15px;
+  font-size: 1.6rem;
+  display: block;
+}
+
+.popTime div > label{
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+}
+
+.message-actived{
+  color: #F49C49;
+}
+
+.element-actived{
+  color: #F49C49;
+}
+
+.outter-li ul li[name='message']:before{
+  content:attr(message-num);
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  background-color: #E90301;
+  color: white;
+  padding: 0px 2px;
+}
+
+.outter-ul ul li img{
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+/*轮循环图*/
+/* main_image */
+.main_visual{height:220px;overflow:hidden;position:relative;}
+.main_image{height:220px;overflow:hidden;position:relative;}
+.main_image ul{width:100%;height:220px;overflow:hidden;position:absolute;top:0;left:0}
+.main_image li{float:left;width:100%;height:220px;}
+.main_image li span{display:block;width:100%;height:220px}
+.main_image li a{display:block;width:100%;height:220px}
+.main_image li .img_1{background:url('../images/swipers/swiper1.png')  no-repeat;background-size: 100% 100%;-moz-background-size:100% 100%;}
+.main_image li .img_2{background:url('../images/swipers/swiper2.png')  no-repeat;background-size: 100% 100%;-moz-background-size:100% 100%;}
+.main_image li .img_3{background:url('../images/swipers/swiper3.png')  no-repeat;background-size: 100% 100%;-moz-background-size:100% 100%;}
+.main_image li .img_4{background:url('../images/swipers/swiper4.png')  no-repeat;background-size: 100% 100%;-moz-background-size:100% 100%;}
+.main_image li .img_5{background:url('../images/swipers/swiper5.png')  no-repeat;background-size: 100% 100%;-moz-background-size:100% 100%;}
+
+
+div.flicking_con{position:absolute;top:190px;left:50%;z-index:999;height:21px;margin:0 0 0 -50px;}
+div.flicking_con a{float:left;width:21px;height:21px;margin:0;padding:0;background:url('../images/swipers/btn_main_img.png') 0 0 no-repeat;display:block;text-indent:-1000px}
+div.flicking_con a.on{background-position:0 -21px}
+
+/*用户展示*/
+.show-user > ul{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+
+.show-user > ul li{
+
+}
+
