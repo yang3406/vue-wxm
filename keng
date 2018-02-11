@@ -1,0 +1,16 @@
+好坑吖
+
+第一个坑
+在new VueRouter()把routes写为routers了 哭哭哭
+
+
+第二个坑
+import 'src/plugins/swiper.min.js'
+报Cannot assign to read only property 'exports' of object '#<Object>'
+解决 把.babelrc里的
+"plugins": ["transform-vue-jsx", "transform-runtime"],
+改为
+"plugins": []
+
+
+

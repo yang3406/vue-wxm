@@ -1,4 +1,4 @@
-import App from '../App.vue'
+import App from '../App'
 
 const home = r => require.ensure([], () => r(require('../page/home/home')), 'home')
 
@@ -20,3 +20,4 @@ export default [{
       ]
     }
 ]
+

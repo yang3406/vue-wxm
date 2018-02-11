@@ -1,15 +1,16 @@
 <template>
   <div >
-    <transtion name="fade" mode="out-in">
+    <!--<transtion name="fade" mode="out-in">
        <keep-alive>
-          <!--需要被缓存 如home 对应组件home-->
+          &lt;!&ndash;需要被缓存 如home 对应组件home&ndash;&gt;
           <router-view> v-if="$router.meta.keepAlive"></router-view>
        </keep-alive>
     </transtion>
     <transtion name="fade" mode="out-in">
-      <!--不需要被缓存的组件-->
+      &lt;!&ndash;不需要被缓存的组件&ndash;&gt;
       <router-view> v-if="!$router.meta.keepAlive"></router-view>
-    </transtion>
+    </transtion>-->
+    <router-view></router-view>
     <div>helloHellod</div>
   </div>
 </template>

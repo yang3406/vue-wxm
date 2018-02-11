@@ -5,7 +5,9 @@
  * imgBaseUrl: 图片所在域名地址
  * */
 
-let baseUrl = '',routerMode='',imgBaseUrl='';
+let baseUrl = '';
+let routerMode = 'hash';
+let imgBaseUrl;
 
 if(process.env.NODE_ENV == "development"){
 

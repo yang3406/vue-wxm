@@ -1,5 +1,6 @@
 <template>
     <div>
+      <h1>第一层</h1>
       <div v-if="showMenu" >
         <!--图片切换-->
          <nav class="home-nav">
@@ -39,6 +40,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 import tabMenuList from 'src/config/tabmenu.js'
 import 'src/plugins/swiper.min.js'
 import 'src/style/swiper.min.css'
@@ -52,17 +54,13 @@ export default {
     }
   },
   method(){
-    debugger
-    //初始化swiper
-    new Swiper('.swiper-container', {
-      pagination: '.swiper-pagination',
-      loop: true
-    });
+     //初始化swiper
+     new Swiper('.swiper-container', {
+       pagination: '.swiper-pagination',
+       loop: true
+     });
 
-  },
-  computed(){
-
-  }
+   }
 }
 
 </script>
