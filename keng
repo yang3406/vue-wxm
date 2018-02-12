@@ -19,6 +19,9 @@ import 'src/plugins/swiper.min.js'
 引入图片后 图片显示不了 swiper
 原因是 url-loader无法解析js动态生成的路径。 配置在webpack.base.conf.js里面
 解决 把图片文件放入 static目录下面 即可
+还有一种是img(url) 地址的 放在外面也行 但是地址要/static
+放在里面的话 地址就是相对于当前.vue的地址
+
 
 
 
