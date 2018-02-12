@@ -1258,38 +1258,6 @@ ul#img-list li img,ul#decl-img-list li img{
 
 
 
-/*.weui-tabbar__icon .service{
-    display: inline-block;
-    background: url("../images/service_gray.png") no-repeat no-repeat center center;
-    background-size: 100% 100%;
-    height: 100%;
-    width: 100%;
-}
-
-.weui-tabbar__item.weui-bar__item--on .weui-tabbar__icon .service{
-    display: inline-block;
-    background: url("../images/service_yellow.png") no-repeat no-repeat center center;
-    background-size: 100% 100%;
-    height: 100%;
-    width: 100%;
-}*/
-
-/*.weui-tabbar__icon .self{
-    display: inline-block;
-    background: url("../images/self_gray.png") no-repeat no-repeat center center;
-    background-size: 100% 100%;
-    height: 100%;
-    width: 100%;
-}
-
-.weui-tabbar__item.weui-bar__item--on .weui-tabbar__icon .self{
-    display: inline-block;
-    background: url("../images/self_yellow.png") no-repeat no-repeat center center;
-    background-size: 100% 100%;
-    height: 100%;
-    width: 100%;
-}*/
-
 /** 消息页面展示*/
 .query-message-outer-ul{
     display: flex;

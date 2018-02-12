@@ -1,9 +1,9 @@
 
-let baseImgUrl = "../../images/"
+let baseImgUrl = "static/images/"
 let loadPageUrl = ""
 
 const tabMenuList = [
-  /*{
+  {
     id: 'hscode',
     name: 'HS编码',
     imageUrl: baseImgUrl + 'fuwu/hscode.png',
@@ -39,12 +39,12 @@ const tabMenuList = [
     imageUrl: baseImgUrl + 'fuwu/mfcfm.png',
     pageUrl: loadPageUrl + "mfcfm/mfcfmList.html"
   },
-  /!*{
+  {
    id: 'datacount',
    name: '数据统计',
    imageUrl: baseImgUrl + 'fuwu/datacount.png',
    pageUrl: ""
-   },*!/
+   },
   {
     id: 'check',
     name: '口岸查验',
@@ -56,7 +56,16 @@ const tabMenuList = [
     name: '消息中心',
     imageUrl: baseImgUrl + 'fuwu/message.png',
     pageUrl: loadPageUrl + "message/messageList.html"
-  }*/
+  }
 ]
 
-export default tabMenuList
+
+const swiperImgList = [
+  {imageUrl: baseImgUrl + 'swiper/swiper1.png',name:"swiper1"},
+  {imageUrl: baseImgUrl + 'swiper/swiper2.png',name:"swiper2"},
+  {imageUrl: baseImgUrl + 'swiper/swiper3.png',name:"swiper3"},
+  {imageUrl: baseImgUrl + 'swiper/swiper4.png',name:"swiper4"},
+  {imageUrl: baseImgUrl + 'swiper/swiper5.png',name:"swiper5"}
+  ]
+
+export { tabMenuList,swiperImgList}

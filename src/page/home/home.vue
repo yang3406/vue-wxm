@@ -1,20 +1,29 @@
 <template>
     <div>
-      <h1>第一层</h1>
       <div v-if="showMenu" >
         <!--图片切换-->
          <nav class="home-nav">
-             <div class="swiper-container" v-if="tabMenuList.length">
+             <div class="swiper-container" v-if="swiperImgList.length">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-for="(item,index) in tabMenuList" :key="index">
+                    <div class="swiper-slide" v-for="(item,index) in swiperImgList" :key="index">
                       <img :src="item.imageUrl">
-                      <figcaption>imageItem.name</figcaption>
                     </div>
                 </div>
                <div class="swiper-pagination"></div>
              </div>
          </nav>
-         <div></div>
+         <section class="menu-section">
+           <div class="menu">
+             <ul class="outter-ul">
+               <li class="outter-li" v-for="(item,index) in tabMenuList" :key="index">
+                 <ul>
+                   <li><img :src="item.imageUrl"></img></li>
+                   <li>{{item.name}}</li>
+                 </ul>
+               </li>
+             </ul>
+           </div>
+         </section>
       </div>
 
       <div v-else>
@@ -41,7 +50,7 @@
 
 <script>
 import {mapMutations} from 'vuex'
-import tabMenuList from 'src/config/tabmenu.js'
+import {tabMenuList,swiperImgList} from 'src/config/tabmenu.js'
 import 'src/plugins/swiper.min.js'
 import 'src/style/swiper.min.css'
 
@@ -50,15 +59,20 @@ export default {
     return {
       showMenu:true,
       isActive:true,
-      tabMenuList:tabMenuList
+      swiperImgList:swiperImgList,
+      tabMenuList
     }
   },
+  mounted(){
+    //初始化swiper
+    new Swiper('.swiper-container', {
+      pagination: '.swiper-pagination',
+      loop: true,
+      autoplay:2000
+    });
+  },
   method(){
-     //初始化swiper
-     new Swiper('.swiper-container', {
-       pagination: '.swiper-pagination',
-       loop: true
-     });
+
 
    }
 }
@@ -66,11 +80,13 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  @import "../../style/queryIndex.css";
+
   .weui-tabbar{
     display: -webkit-flex;
     display: -webkit-box;
     display: flex;
-    position: absolute;
+    position: fixed;
     z-index: 500;
     bottom: 0;
     width: 100%;
@@ -100,9 +116,63 @@ export default {
     -webkit-tap-highlight-color: rgba(0,0,0,0)
   }
 
-  .weui-tabbar .active{
-    color:#f48c2b;
-
+  .weui-tabbar__icon {
+    display: inline-block;
+    width: 27px;
+    height: 27px;
   }
 
+  .weui-tabbar .active{
+    color:#f48c2b;
+  }
+
+  .menu-section{
+    margin-bottom: 53px;
+    background-color: white;
+  }
+
+  .weui-tabbar__label {
+    text-align: center;
+    color: #999;
+    font-size: 10px;
+    line-height: 1.8;
+  }
+
+  .swiper-slide img{
+    height: 18rem;
+    width: 100%;
+  }
+
+
+  .weui-tabbar__icon .service{
+    display: inline-block;
+    background: url("../../assets/images/service_gray.png") no-repeat no-repeat center center;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+  }
+
+  .weui-tabbar__item.weui-bar__item--on .weui-tabbar__icon .service{
+    display: inline-block;
+    background: url("../../assets/images/service_yellow.png") no-repeat no-repeat center center;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+  }
+
+  .weui-tabbar__icon .self{
+    display: inline-block;
+    background: url("../../assets/images/self_gray.png") no-repeat no-repeat center center;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+  }
+
+  .weui-tabbar__item.weui-bar__item--on .weui-tabbar__icon .self{
+    display: inline-block;
+    background: url("../../assets/images/self_yellow.png") no-repeat no-repeat center center;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+  }
 </style>
