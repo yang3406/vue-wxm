@@ -10,6 +10,7 @@ import 'src/plugins/swiper.min.js'
 解决 把.babelrc里的
 "plugins": ["transform-vue-jsx", "transform-runtime"],
 改为
+
 "plugins": []
 
 
