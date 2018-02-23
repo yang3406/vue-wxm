@@ -96,7 +96,7 @@
 </template>
 
 <script>
-  import {mapMutations} from 'vuex'
+  import {mapState,mapMutations} from 'vuex'
   import {tabMenuList, swiperImgList} from 'src/config/tabmenu.js'
   import 'src/plugins/swiper.min.js'
   import 'src/style/swiper.min.css'
@@ -118,6 +118,9 @@
         loop: true,
         autoplay: 2000
       });
+    },
+    computed:{
+
     },
     methods: {
       toggleTab: function (param, event) {
