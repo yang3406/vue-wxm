@@ -125,8 +125,14 @@ js表达式 用{{}}只能包含单个表达式 注意是表达式 赋值语句�
 .prevent修饰符告诉v-on指令对于触发时间的调用event.prevent()
 <form v-on:submit.prevent="onSubmit"></form>
 
+14:35 15:00
 
 
 
+http://www.imooc.com/article/14741
+vuex辅助函数
+可以把store中的state映射到局部计算属性中
+mapState 可以为数组或对象
 
 
+mapGetters
