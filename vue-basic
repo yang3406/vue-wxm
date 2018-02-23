@@ -1,5 +1,131 @@
+Angular,react,vue三大框架的区别:
+一:
+Angular有较强的排他性,是强主张的,必须使用它的规范:
+1:使用它的模块机制
+2:使用它的依赖注入
+3:使用特殊形式定义组件(三大模块都是如此)
+二:
+react主张是函数式编程.比如说，你需要知道什么是副作用，什么是纯函数，
+如何隔离副作用。它的侵入性看似没有Angular那么强，主要因为它是软性侵入。
+那么什么是函数式编程,什么是命令式编程呢？
+函数式编程关心的数据的映射,命令式编程关心解决问题的步骤。
+比起命令式编程，函数式编程更加强调程序执行的结果而非执行的过程，
+倡导利用若干简单的执行单元让计算结果不断渐进，逐层推导复杂的运算，而不是设计一个复杂的执行过程。
+函数式编程，无副作用，写出来的代码没有bug，这是真理没错，但是有两个问题需要考虑：
+1. JS本身，有太多特性与纯函数式的主张不适配，这一点，题叶能说得更多
+2. 业务系统里面的实体关系，如何组织业务逻辑，几十年来积累了无数的基于设计模式的场景经验，
+有太多的东西可以模仿，但是，没有人给你总结那么多如何把你的厚重业务映射到函数式理念的经验，
+这个地方很考验综合水平的，真的每个人都有能力去做这种映射吗？
+三:
+Vue是自下向上的渐进式框架 易于和第三方库和已有的项目融合
+什么是渐进式?
+没有强主张,你可以在原有大系统的上面，把一两个组件改用它实现，当jQuery用；
+也可以整个用它全家桶开发，当Angular用；还可以用它的视图，搭配你自己设计的整个下层用。
+你可以在底层数据逻辑的地方用OO和设计模式的那套理念，也可以函数式，都可以，
+它只是个轻量视图而已，只做了自己该做的事，没有做不该做的事，仅此而已。渐进式的含义，
+我的理解是：没有多做职责之外的事
+自下而上:个人理解是数据更新视图
 
+10.10 第一个tomato 数据(data)属性响应式
 写一些基本vue的用法 免得经常忘记
+创建vue实例 通过new Vue()创建的根vue实例 以及可选嵌套的可复用的组件树组成 所有的vue组件也是vue实例
+var vm = new Vue({
+        el:"#app",
+        data:{a:1}
+      })
+data属性 在data里面存在的属性才是响应式的 a是响应式的 通过vm.b添加的不是响应式的 对vm.b改变视图将不会改变
+而vm.a的改变会视图将会改变 所以可以先把数据b在data中赋值为空
+还有一个例外 Object.freeze();将导致响应系统无法追踪数据变化
+例如
+ var data = {a:1}
+ Object.freeze(data);
+ var vm = new Vue({
+   el:"#app",
+   data (){
+      return{
+        data
+      }
+   }
+ })
+那么通过vm.a=2 或data.a=2将不会响应更新
+
+10.35-11.00
+除了data属性 Vue还暴露了一些有用的实例属性和方法 用 $ 区分标识
+如
+var data = {a:1}
+var vm = new Vue({
+  el:'#app',
+  data:data
+})
+vm.$data = data
+vm.$el = document.getElementById("app")
+$watch是一个实例方法 在vm.a的值改变后回调
+vm.$watch("a",function(oldValue,newValue){
+
+})
+
+
+mount(安装) injection(注射) reactivity(反应) render(给与渲染)
+实例生命周期钩子(从创建加载模板编译挂载监视数据实时更新DOM等)
+不同的阶段对应不同的钩子(方法)
+在生命周期里面的this上下文指向调用它的vue实例  call apply
+切记不要在钩子函数中使用箭头函数 因为箭头函数没有自己的this 它的this为所处的宿主对象(父级函数或window)
+11:20 - 11.50
+     new Vue
+       |(init Events & LifeCycle)  (注册)
+  beforeCreate
+       |(init injection & reactivity) (注射)
+     created
+       |
+  <has el option?> ------N--------->| (预挂载)
+       |Y                 when vm.mount(el) is called|
+       |             <-------------------------------
+  <has 'template' option?> ------N---->|  (编译)
+       |Y                  compile el's outerHtml as template *|
+       |    <-------------------------------------------
+    compile template into render function
+       |
+   beforeMount   (安装)
+       |
+     mounted
+       |
+  beforeDestroy
+       |
+    destroyed
+
+
+14.00--14.30
+mustache(胡子)
+模板语法
+vue使用了基于HTML的模板语法 可以把DOM绑定至底层Vue实例 Vue的模板都是合法的HTML
+
+文本 绑定值
+{{}} 绑定的数据对象值变 则显示的插值也会改变
+v-once 执行一次性插值 数据再次改变时 值不会变  <span v-once>这个将不会改变{{msg}}</span>
+v-html 输出真正的HTML  var rawHtml = "<a style='color:red'>www</a>"  <p>using v-html directive: <span v-html="rawHtml"></span></p>
+注意使用v-html只对可信内容使用HTML插值,因为很容易导致XSS攻击
+
+特性 使用v-bind绑定元素特性
+<div v-bind:id="testID"></div> <button v-bind:disabled="isDisable"></button>
+
+js表达式 用{{}}只能包含单个表达式 注意是表达式 赋值语句和流程控制都不行
+{{number + 1}}
+
+----------
+
+指令
+指令是带有v-前缀的特殊属性 指令的职责是当表达式的值改变时,将其产生的连带影响,响应式作用于DOM
+<p v-if="seen">你现在看到我了</p>根据seen的值真假插入/移除<p>元素
+
+参数
+一些指令能够接收一个"参数"
+<a v-bind:href="url">..</a>
+
+修饰符
+.prevent修饰符告诉v-on指令对于触发时间的调用event.prevent()
+<form v-on:submit.prevent="onSubmit"></form>
+
+
 
 
 
