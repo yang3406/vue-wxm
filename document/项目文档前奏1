@@ -1,0 +1,109 @@
+import/export  require
+1:import/export为es6中的规范
+2:require为node中的规范
+
+从package.json进入
+运行 npm run dev 启动服务(或用webstorm npm启动)
+-------》
+访问build/dev-server.js
+var config = require('../config')
+通过node里面自带的require引入 相关配置 它会默认去找 文件夹下的index.js文件 详情请见txt
+
+config UNDO
+包含config下的index.js包含服务器启动的一些配置
+例如 webpack打包根据环境配置？？UNDO
+     服务启动配置 端口 默认访问路径 代理路径等
+
+process
+是node的一个全局进程(node主进程),无需require便可使用,允许你获得或者修改当前node进程的设置.
+process.env返回包含用户环境信息的对象--返回项目运行所在环境的一些信息。
+作用：
+   给服务器打上标签 根据不同的环境 做上一些配置处理 比如后端接口的域名切换
+   可在window和linux进行系统自行配置 请百度
+   也可以在项目config下的各个环境配置js中修改
+
+path
+是node的一个模块
+引入 var path = require("path");
+作用 管理规范路径
+用法
+     在windows中目录分隔为'\',对于linux中分隔为'/',返回上一层'..'，
+    1、解析路径中的".."和"."字符串，返回解析后的标准路径。
+    2、将多个斜杠字符串转换为一个斜杠字符串，例如将"\\"转换为"\"。
+    3、将window操作系统中的反斜杠字符串转换为正斜杠字符串。
+    4、如果路径字符串以斜杠字符串结尾，则会在转换后的完整路径字符串末尾保留该斜杠字符串。
+    __dirname变量值代表程序运行的根目录。
+    一：normalize
+      var myPath = path.normalize(__dirname + '/test/a//b//../c/utilyou.mp3');
+      console.log(myPath); //windows: E:\workspace\NodeJS\app\fs\test\a\c\utilyou.mp3
+    二：join()
+       将多个参数值字符串结合成一个路径字符串
+       var joinPath = path.join(__dirname, 'a', 'b', 'c');
+       console.log(joinPath);      //   D:\nodePro\fileTest\a\b\c
+    三：resolve()
+       应用程序根目录为起点，根据所有的参数值字符串解析出一个绝对路径。该方法的使用方式如下：
+       path.resolve(path1, [path2], [...])
+       var resolve = path.resolve('a', 'b', 'c');
+       console.log(resolve);      //  D:\nodePro\fileTest\a\b\c
+    还有其它 请看http://www.cnblogs.com/duhuo/p/4752640.html
+
+express
+  基于node的web应用开发框架
+  丰富的 HTTP 快捷方法和任意排列组合的 Connect 中间件，让你创建健壮、友好的 API 变得既快速又简单
+
+webpack
+   模块打包器。
+
+opn
+  自动打开浏览器 插件
+
+http-proxy-middleware
+  域名代理,访问域名转向
+  该插件可以将前端开发中涉及到的请求代理到API服务器上，方便与服务器对接
+
+webpackConfig
+ 具体打包配置
+
+webpack-dev-middleware + webpack-hot-middleware 热更新
+  webpack-dev-middleware 对更改的文档进行监控 专业点叫做伺服器
+  webpack-hot-middleware 进行页面热重载。
+  而且这些文件资源并不会出现在真实的路径里，而是保存在内存中，
+  如果文件改变，这个伺服器就不在去请求旧的文件，而是延迟请求直到新的文件编译完成。
+  注意:html热更新是要另外配置的  html-webpack-plugin-after-emit
+
+connect-history-api-fallback
+   模块，通过指定的索引页来代理请求的中间件，
+   对于使用HTML5历史API的单个页面应用程序非常有用。
+    处理 HTML5历史api回退的问题
+
+path.posix
+  // posix属性提供了对路径方法的POSIX特定实现的访问。
+  // 服务纯静态资源。 利用Express托管静态文件，使其可以作为资源访问
+  // 想要访问static文件夹下的资源，必须添加 staticPath 返回的地址作为上一级地址。
+
+server.listen()
+   启动服务,监听端口
+
+默认访问根路径下的index.html页面
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

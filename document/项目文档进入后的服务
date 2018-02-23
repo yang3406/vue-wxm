@@ -1,0 +1,44 @@
+vue开发流程
+
+index.html
+   == 入口页面
+   id='app'，是为后面的设置vue作用域有关的。
+   router-view 为视图放的位置
+
+main.js
+  入口文件：初始化vue并使用需要的插件
+  引入的方式为：vue.js官网提供的脚手架工具并沿用默认配置的话，
+  你执行npm run dev的时候会出来页面，
+  是因为你根目录下的package.json文件里script配置了
+  "dev": "node build/dev-server.js"，
+  也就是其实执行的是dev-server.js这个文件，
+  里面有定义var webpackConfig = require('./webpack.dev.conf');
+  因为我们这个脚手架工具里是用webpack来打包项目文件的，
+  依赖的webpack.dev.conf文件里又定义了
+  var baseWebpackConfig = require('./webpack.base.conf');
+  在这个依赖webpack.base.conf文件里面entry入口文件就配置了
+  app: './src/main.js'，所以当你运行npm run dev的时候就从main.js这个入口文件开始执行了
+  在打包后 可以看到在index.html引入了main.js
+
+
+app.vue
+  主组件:所有页面的切换都是在app.vue下切换的.也可理解所有的路由也是app.vue的子路由。
+  所以也将router标识为app.vue的子组件
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
