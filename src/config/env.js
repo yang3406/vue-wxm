@@ -10,7 +10,7 @@ let routerMode = 'hash';
 let imgBaseUrl;
 
 if(process.env.NODE_ENV == "development"){
-
+  baseUrl = 'http://yjsvip.hk1.tunnelfrp.cc/';
 }else if(process.env.NODE_ENV == "production"){
 
 }

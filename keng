@@ -23,6 +23,8 @@ import 'src/plugins/swiper.min.js'
 还有一种是img(url) 地址的 放在外面也行 但是地址要/static
 放在里面的话 地址就是相对于当前.vue的地址
 
+在写了store后要把store在main.js注入vue中 不然会报dispatch错误
+
 
 
 

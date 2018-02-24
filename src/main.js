@@ -37,5 +37,6 @@ const router = new VueRouter({
   })
 
 new Vue({
-  router
+  router,
+  store
 }).$mount('#app')

@@ -1,0 +1,1 @@
+export const RECORD_OPENID = "RECORD_OPENID"

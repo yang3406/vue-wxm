@@ -96,8 +96,10 @@
 </template>
 
 <script>
-  import {mapState,mapMutations} from 'vuex'
+  import {mapState,mapActions} from 'vuex'
   import {tabMenuList, swiperImgList} from 'src/config/tabmenu.js'
+  import {getSessionStore} from '../../config/mUtils'
+  import {RECORD_OPENID} from '../../store/mutation-types'
   import 'src/plugins/swiper.min.js'
   import 'src/style/swiper.min.css'
 
@@ -118,6 +120,13 @@
         loop: true,
         autoplay: 2000
       });
+
+      if(!getSessionStore(RECORD_OPENID)){
+         let openId = this.getOpenId();
+         debugger
+      }
+
+
     },
     computed:{
 
@@ -132,7 +141,11 @@
           this.isActive = false;
           this.showMenu = false;
         }
-      }
+      },
+      ...mapActions([
+        'getOpenId'
+      ])
+
     }
   }
 
