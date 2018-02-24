@@ -1,8 +1,8 @@
-import {baseUrl} from "./env";
+import {wechatUrl} from "./env";
 
 export default async (url = '', type = 'GET', data = {}, method = 'fetch') => {
   type = type.toUpperCase();
-  url = baseUrl + url;
+  url = wechatUrl + url;
 
   if (type == "GET") {
     let dataStr = ''; //数据拼接
