@@ -11,7 +11,6 @@ export default {
   async getOpenId({
     commit,state
    }){
-    debugger
     let res = fetchOpenId();
     commit(RECORD_OPENID,res)
   }
