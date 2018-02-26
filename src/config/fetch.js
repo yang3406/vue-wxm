@@ -21,7 +21,8 @@ export default async (url = '', type = 'GET', data = {}, method = 'fetch') => {
       method: type,
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin':'*',
       },
       mode: 'cros', //也是跨域使用的
       cache: 'force-cache' //强制清除缓存

@@ -1,0 +1,30 @@
+entry: 入口
+const config = {
+   entry:'./path'
+}
+
+
+output  输出
+output:{
+   filename:'[name].js',  //name占位符
+   path:__dirname +'/dist'   //输出硬盘位置
+}
+
+
+loader
+用于对模块的源代码进行转换。loader可以让你在import或加载
+模块时预处理文件.可以把文件从不同的语言转为JavaScript.loader
+甚至甚至允许你直接在JS模块中import css问价。
+
+plugins  插件
+插件目的在于解决 loader 无法实现的其他事。
+
+
+
+module   模块
+js开发过程中,几种模块
+1:es5的import语句
+2:commonJS 的require() 语句
+3:AMD define和require语句
+4:css/sass/less 文件中的@import语句
+5:样式(url(...))和HTML文件(<img src=...>)
