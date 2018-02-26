@@ -1,0 +1,68 @@
+
+vuex(就是一个单例对象)
+就是状态管理模式,采用集中式存储管理应用的所有组件的状态
+核心就是一个store 包含着应用中大部分的状态(state)
+和全局对象有两点区别
+1:vuex中存储的状态是响应式的,当你在使用store 读取状态(state)时,
+如果状态发生改变,则相应的组件也会得到更新
+2;要想更新store中的状态,仅仅能用commit mutation好处,易于跟踪每个状态的变化
+
+使用：
+1:安装vuex
+2:引入vuex
+3:Vue.use(Vuex)
+4:const store = new Vuex.store({
+           state:{count:0},
+           mutations:{
+
+            }
+           })
+然后把store注入到new vue({store })中
+把store从根组件注入到每一个子组件中
+不需要在子组件频繁的引入vuex state组件
+在所有子组件中都可以通过this.$store.state.count 访问到
+
+核心概念:
+1:state
+读取state 最佳是在 组件的computed中
+mapState辅助函数的使用
+当一个组件需要获取多个状态时,把这些属性都声明为计算属性会有些冗余,
+用mapState帮我们生成计算属性
+// 在单独构建的版本中辅助函数为 Vuex.mapState
+import { mapState } from 'vuex'
+computed: mapState({
+    // 箭头函数可使代码更简练
+    count: state => state.count,
+
+    // 传字符串参数 'count' 等同于 `state => state.count`
+    countAlias: 'count',
+
+    // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+    countPlusLocalState (state) {
+      return state.count + this.localCount
+    }
+  })
+  this.$store.state.count 简化为 state.count
+
+  mapState 函数返回的是一个对象。我们如何将它与局部计算属性混合使用
+  computed: {
+    localComputed () { /* ... */ },
+    // 使用对象展开运算符将此对象混入到外部对象中
+    ...mapState({
+      // ...
+    })
+  }
+
+2:getter
+
+3:action
+
+4:mutation
+
+
+5:module
+
+
+
+
+
