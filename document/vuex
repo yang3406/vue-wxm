@@ -214,7 +214,7 @@ store.dispatch({
   amount: 10
 })
 
-
+具体异步触发 请看文档
 
 
 5:module
