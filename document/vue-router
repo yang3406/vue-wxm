@@ -43,6 +43,7 @@ const app = new Vue({
   </p>
   <router-view></router-view>
   匹配/foo下的路径至相同的组件 动态路由参数 由/: 表示,用this.$route.params获取参数
+  每一个子组件都等于一个vue实例 可以在里面放mount create computed method等
   const foo = {
       template:'<h1>this is foo {{$route.params.id}}{{name}}</h1>',
       watch:{
