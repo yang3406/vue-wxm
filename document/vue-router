@@ -2,8 +2,9 @@
 
 使用vue.js + vue-router 创建单页面应用
 通过组合组件组成应用程序 把vue-router加进来
+页面配置路由
 把组件(components)映射到路由(routes),
-然后告诉(route-router)在哪里渲染
+然后告诉(router)在哪里渲染(<router-view></router-view>)
 
 一:匹配死路径
 1:页面配置路由 渲染地方
