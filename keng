@@ -4,7 +4,7 @@
 
 
 第一个坑
-在new VueRouter()把routes写为routers了 哭哭哭
+在new VueRouter({routes})把routes写为routers了 哭哭哭
 
 
 第二个坑
@@ -25,7 +25,12 @@ import 'src/plugins/swiper.min.js'
 
 在写了store后要把store在main.js注入vue中 不然会报dispatch错误
 
+在写扩展方法时 用了this 方法是用的箭头函数 报错Cannot convert object to primitive value
+箭头函数里面的this用的是外部函数或window的 不是调用它的对象 记住呀
 
+在vue项目中引入其他js或css 这是webpack配置的问题
+一:可以直接在index.html通过<script></script> 引入同层的static下的目录(只能是static同层目录下的)
+二:可以在import('')引入其他目录的js
 
 
 

@@ -11,8 +11,12 @@ export default {
   async getOpenId({
     commit,state
    }){
-    let res = fetchOpenId();
-    commit(RECORD_OPENID,res)
+    fetchOpenId().then(res => {
+      if(res.result && res.wxmpuser){
+        commit(RECORD_OPENID,res.wxmpuser);
+      }
+    })
+
   }
 }
 

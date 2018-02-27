@@ -6,17 +6,20 @@
  * */
 
 let wechatUrl = '';
+let baseDataUrl = '';
 let routerMode = 'hash';
 let imgBaseUrl;
 
 if(process.env.NODE_ENV == "development"){
   wechatUrl = 'http://yjsvip.hk1.tunnelfrp.cc';
+  baseDataUrl = 'http://localhost:8080/mobile/'
 }else if(process.env.NODE_ENV == "production"){
 
 }
 
 export {
   wechatUrl,
+  baseDataUrl,
   routerMode,
-  imgBaseUrl
+  imgBaseUrl,
 }

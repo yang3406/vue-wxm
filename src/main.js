@@ -21,7 +21,7 @@ Vue.use(VueRouter);
 const router = new VueRouter({
    mode: routerMode,
    strict:process.env.NODE_ENV !== 'production',
-   routes,
+   routes,   //记住这里是routes 不是routers *****
     //scrollBehavior是页面跳转到一个新页面时 定位的地方
    scrollBehavior(to,from,savedPosition){
     // return 希望定位的地方

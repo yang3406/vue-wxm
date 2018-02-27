@@ -1,0 +1,66 @@
+
+
+使用vue.js + vue-router 创建单页面应用
+通过组合组件组成应用程序 把vue-router加进来
+把组件(components)映射到路由(routes),
+然后告诉(route-router)在哪里渲染
+
+一:匹配死路径
+1:页面配置路由 渲染地方
+<div id="app">
+   <p>
+     <router-link to="/foo">go to foo</router-link> //router-link相当于a标签
+     <router-link to="/bar>go to bar</router-link>
+   </p>
+   <router-view></router-view> //路由出口 把匹配路由的组件渲染到这里
+</div>
+
+2:配置匹配页面路由
+ 1:定义组件路由 也可从其他地方引入import
+ const foo = {template:'<div>foo</div>'}
+ const var = {template:'<div>bar</div>'}
+3:定义路由 进行路由匹配
+const routes = [
+  { path: '/foo', component: Foo },
+  { path: '/bar', component: Bar }
+]
+const router = new VueRouter({
+  routes // （缩写）相当于 routes: routes 记住这里是routes 不是routers
+})
+4:挂载到根实例
+const app = new Vue({
+  router //
+}).$mount('#app')
+5:注入根实例 我们可以在任何组件 通过this.$router来访问他
+
+二:动态路由
+目的:匹配相同模式下的路径到相同的组件
+  <p>
+   <router-link to="/foo/idone">go to foo(1)</router-link>
+   <router-link to="/foo/idtwo">go to foo(2)</router-link>
+   <router-link to="/bar">go to bar</router-link>
+  </p>
+  <router-view></router-view>
+  匹配/foo下的路径至相同的组件 动态路由参数 由/: 表示,用this.$route.params获取参数
+  const foo = {
+      template:'<h1>this is foo {{$route.params.id}}{{name}}</h1>',
+      watch:{
+          $route(to,from){
+            if(to.path.indexOf('idone')){
+                this.name = 'cici'
+            }else {
+                this.name = 'bili'
+            }
+          }
+      },
+      data(){ return { name:'bili'}}
+
+  };
+  const bar = {template:'<h1>this is bar</h1>'};
+
+  const routes = [
+      {path:'/foo/:id',component:foo},
+      {path:'/bar',component:bar},
+  ];
+注意的是 用的同一组件 钩子函数不会再次触发
+所以可以用watch和beforeRouteUpdate 监控路由变化

@@ -102,6 +102,7 @@
   import {RECORD_OPENID} from '../../store/mutation-types'
   import 'src/plugins/swiper.min.js'
   import 'src/style/swiper.min.css'
+  import 'src/config/expandjs'
 
   export default {
     data() {
@@ -122,8 +123,8 @@
       });
 
       if(!getSessionStore(RECORD_OPENID)){
-         let openId = this.getOpenId();
-         debugger
+         this.getOpenId();
+
       }
 
 
