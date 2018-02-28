@@ -7,6 +7,8 @@
 <body>
    <div id="app">
        <p>
+           <router-link to="/redirect">路由重定向</router-link>
+         <router-link to="/othername">别名路由</router-link>
            <router-link to="/foo/idone">go to foo(1)</router-link>
            <router-link to="/foo/idtwo">go to foo(2)</router-link>
            <router-link to="/bar">go to bar</router-link>
@@ -16,6 +18,9 @@
           <!--注意 命名式路由是 :to 不是 to -->
            <router-link :to="{name:'nameRouter',params:{id:'yjs'}}">命名式路由</router-link>
            <a @click.prevent="nameRouter">编程式命名路由</a>
+            <a @click.prevent="nameViewRouter1">命名视图1</a>
+            <a @click.prevent="nameViewRouter2">命名视图12</a>
+         <a @click.prevent="devideRouter">路由解耦</a>
        </p>
        <router-view></router-view>
    </div>

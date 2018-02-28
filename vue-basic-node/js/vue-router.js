@@ -39,10 +39,35 @@ const programRoute = {
 const nameRouter = {
   template:"<div>这是一个命名式路由{{$route.params.id}}</div>"
 }
+
+const view = {
+  template:'<div><p>这个命名式路由</p>' +
+  '<router-view></router-view>' +
+  '<router-view name="secondView"></router-view>' +
+  '</div>'
+}
+
+const view1 = {
+  template:'<h1>这是视图1</h1>'
+}
+const view2 = {
+  template:'<h1>这是视图1111</h1>'
+}
+const view3 = {
+  template:'<h1>我是额外的视图</h1>'
+}
+
+const devide = {
+  props:['name'],
+  template:'<h1>我可不是通过$router.params得到的哦{{name}}</h1><router-view></router-view>'
+}
 const routes = [
+    //路由重定向 地址
+     //{path:'/redirect',redirect:'/bar'},
+    {path:'/redirect',redirect:{name:'nameRouter'}},  //重定向命名路由
     //动态路由
     {path:'/foo/:id',component:foo},
-    {path:'/bar',component:bar},
+    {path:'/bar',component:bar,alias:'/othername'},  //别名路由
     {
         path:'/child/:sex',
         component:child, //为放子路由视图 在child组件里面放一个<router-view></router-view>
@@ -59,8 +84,18 @@ const routes = [
   //编程式路由
   {path:'/programRoute',component:programRoute},
   //命名式路由 加不加/:id=路径会不会显示
-  {path:'/nameRouter/:id',name:'nameRouter',component:nameRouter}
-
+  {path:'/nameRouter/:id',name:'nameRouter',component:nameRouter},
+  //视图路由
+  {path:'/view',component:view,
+     children:[
+       {path:'router1',component:view1},
+       {path:'router2',
+         components:{default:view2,secondView:view3}
+       },
+       ]
+  },
+  //解耦路由
+  {path:'/devide/:name',component:devide,props:true}
 ];
 
 Vue.use(VueRouter);
@@ -96,6 +131,15 @@ new Vue({
       },
       nameRouter(){
         this.$router.push({name:'nameRouter',params:{id:this.id}})
+      },
+      nameViewRouter1(){
+        this.$router.push("/view/router1");
+      },
+      nameViewRouter2(){
+        this.$router.push("/view/router2");
+      },
+      devideRouter(){
+        this.$router.push('/devide/sb')
       }
     }
 }).$mount("#app")
