@@ -66,3 +66,4 @@ const app = new Vue({
   ];
 注意的是 用的同一组件 钩子函数不会再次触发
 所以可以用watch和beforeRouteUpdate 监控路由变化
+三:编程式路由

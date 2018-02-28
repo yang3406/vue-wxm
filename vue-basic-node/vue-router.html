@@ -12,6 +12,10 @@
            <router-link to="/bar">go to bar</router-link>
            <router-link to="/child/mm/say">go to mm child route</router-link>
            <router-link to="/child/gg/call">ggo to gg child route</router-link>
+           <a @click.prevent="programRoute">编程式路由</a>
+          <!--注意 命名式路由是 :to 不是 to -->
+           <router-link :to="{name:'nameRouter',params:{id:'yjs'}}">命名式路由</router-link>
+           <a @click.prevent="nameRouter">编程式命名路由</a>
        </p>
        <router-view></router-view>
    </div>
