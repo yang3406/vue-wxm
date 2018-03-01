@@ -12,6 +12,7 @@
            <router-link to="/foo/idone">go to foo(1)</router-link>
            <router-link to="/foo/idtwo">go to foo(2)</router-link>
            <router-link to="/bar">go to bar</router-link>
+          <router-link to="/child/sex">go to sex route</router-link>
            <router-link to="/child/mm/say">go to mm child route</router-link>
            <router-link to="/child/gg/call">ggo to gg child route</router-link>
            <a @click.prevent="programRoute">编程式路由</a>
@@ -22,7 +23,7 @@
             <a @click.prevent="nameViewRouter2">命名视图12</a>
          <a @click.prevent="devideRouter">路由解耦</a>
        </p>
-       <router-view></router-view>
+       <transition name="slide"><router-view></router-view></transition>
    </div>
 
 

@@ -2,6 +2,7 @@
 const foo = {
     template:'<h1>this is foo {{$route.params.id}}{{name}}</h1>',
     //用的同一组件 不会再次触发钩子函数 用watch监控 或beforeRouteUpdate 监控
+  //beforeRouteEnter beforeRouteUpdate beforeRouteLeave 局部路由导航
     watch:{
         $route(to,from){
           if(to.path.indexOf('idone')){
@@ -18,11 +19,25 @@ const bar = {template:'<h1>this is bar</h1>'};
 
 //非编程式路由通过 $route.params.sex获取值
 const child = {
+    data(){
+      return{
+        transitionName:"slide-right"
+      }
+    },
     template:'<div>' +
     '<h1>i am top2</h1>' +
     '<p>{{$route.params.sex}}</p>'+
-    ' <router-view></router-view>' +
+    ' <transition :name="transitionName"><router-view></router-view></transition>' +
     '</div>',
+  watch: {
+    '$route' (to, from) {
+      debugger
+      const toDepth = to.path.split('/').length
+      const fromDepth = from.path.split('/').length
+      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+    }
+  }
+
 }
 const MM = {
     template:'<div>MM say she is beautiful</div>',
@@ -101,9 +116,20 @@ const routes = [
 Vue.use(VueRouter);
 
 const router = new VueRouter({
+    mode:'history',
     routes  //记住这里是routes 不是routers
 })
 
+//全局守卫 路由前置守卫
+router.beforeEach((to,from,next) => {
+   //alert(to.path);
+   //要用next才能往下执行 可以用next指向不同的路由 例如 next({path:'/home'})
+   next();
+})
+//全局守卫 路由后置守卫 不会改变导航
+router.afterEach((to,from) => {
+  //alert(to.path)
+})
 new Vue({
     router,
     data(){
