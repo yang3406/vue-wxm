@@ -1,7 +1,7 @@
 
 const foo = {
     template:'<h1>this is foo {{$route.params.id}}{{name}}</h1>',
-    //用的同一组件 不会再次触发钩子函数 用watch监控 或beforeRouteUpdate 监控
+    //动态路由匹配 用的同一组件 不会再次触发钩子函数 用watch监控 或beforeRouteUpdate 监控
   //beforeRouteEnter beforeRouteUpdate beforeRouteLeave 局部路由导航
     watch:{
         $route(to,from){
@@ -31,7 +31,6 @@ const child = {
     '</div>',
   watch: {
     '$route' (to, from) {
-      debugger
       const toDepth = to.path.split('/').length
       const fromDepth = from.path.split('/').length
       this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
