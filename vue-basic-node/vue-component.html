@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>uve-组件</title>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <div>
+        <h1>全局组件的调用</h1>
+        <!--select 会被替换掉-->
+        <select is="globalComponent"></select>
+        <!--不能是globalComponent 否则报错-->
+        <global-component></global-component>
+      </div>
+      <div>
+        <h1>局部组件的调用</h1>
+        <div is="childComponent"></div>
+        <child-component></child-component>
+      </div>
+      <div>
+        <h1>组件模板标签</h1>
+        <select is="templateModel">
+
+        </select>
+      </div>
+      <script type="x-template" id="templateID">
+        <select>
+          <option>组件模板标签1</option>
+          <option>组件模板标签2</option>
+        </select>
+      </script>
+    </div>
+    <div>
+      <h1>组件间的传值</h1>
+      <div>
+        <parent-component></parent-component>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src='lib/vue.js'></script>
+<script>
+  /*全局组件 所有的template必须有一个root element 例如select 不然报错*/
+  Vue.component('globalComponent',{
+     template:'<select><option>全局组件1</option><option>{{message}}</option></select>',
+    /*
+    * data:{
+    *    message:1 //会报错 所有的组件用的同一个对象 改一个都会改动 要返回一个{}
+    * }
+    * var m-data ={meassage:2}
+    * data:function(){
+    *   return m-data; //返回的还是同一个对象 字组件改动 其他地方都被改动
+    * }
+    * //下面的每个子组件都返回一个新对象 不会联动改动
+    * */
+     data:function () {
+       return{
+         message:1
+       }
+     }
+  })
+
+  /*局部组件*/
+  var childComponent = {
+    template:"<select><option>局部组件1</option><option>局部组件2</option></select>"
+  }
+
+  /*
+  *   重点 可以通过修改props传的值为对象和非对象的值时,修改为对象值/数组时,父组件的值也是跟着变的
+  *        修改字符串时,只有子组件跟着改变
+  *        这是因为对象/数组是应用类型 变化会同步
+  * */
+  /*子组件*/
+  var cCom = {
+    name:'cCom',
+    props:['objProp','valProp'],
+    template:'<div>我是子组件,我来接收对象props值{{this.objProp}},在我里面修改对象props' +
+    '<input v-model="childProp.name"><div>我来接收非对象props值{{childValProp}}修改非对象值<input v-model="childValProp"></div></div>',
+    data:function () {
+      return {
+         childProp : this.objProp,
+         childValProp: this.valProp
+      }
+    }
+  }
+
+  /*父组件  传递给子组件的值 只能放在c-com 子元素标签的中属性 不能直接传 这样是不行的 some-prop='crossVal' */
+  var pCom = {
+    name:'pCom',
+    template: "<div>我是父组件,想要传值给子组件<input v-model='crossVal.name'>" +
+    "<p>{{crossVal}}</p><p>{{signVal}}</p><c-com :obj-prop='crossVal' :val-prop='signVal'></c-com></div>",
+    components:{
+      cCom:cCom
+    },
+    data:function () {
+      return {
+        crossVal:{name:'xxx',age:'18'},
+        signVal:"kkk"
+      }
+    }
+  }
+
+  new Vue({
+    el:'#app',
+    components:{
+      childComponent:childComponent,
+      templateModel:{
+        template:"#templateID"
+      },
+      parentComponent:pCom
+    }
+  })
+</script>
+</html>

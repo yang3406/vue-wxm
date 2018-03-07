@@ -1,0 +1,113 @@
+
+component(组件)
+可以帮你扩展基本的HTML元素,封装可重用代码
+在较高层面上,组件是Vue编译器附加行为编译后的自定义元素
+所有的Vue组件都是Vue实例所以接收相同的选项对象，提供相应的声明钩子
+
+全局注册 在任何组件中都可以使用
+Vue.component("vue-component",{
+   template:"<div>A custom component</div>"
+})
+使用
+new Vue({
+ el:'#app'
+})
+
+<div id="example">
+  <my-component></my-component>
+</div>
+
+
+局部注册
+通过实例的components选项,将组件注册到局部,可以使组件只能从其他实例/组件的作用域范围中访问到
+var Child = {
+  template:"<div>A custom component</div>"
+}
+
+nwe Vue({
+  ...
+  components:{
+  //只能在父级模板中使用<my-component>
+    'my-component':Child
+  }
+})
+
+DOM 模板解析注意事项
+当使用DOM作为模板时,会受到一些源自HTML运行机制的限制,因为Vue只有在浏览器解析和标准化HTML之后,
+才能获得模板的内容,尤其像<ul>,<ol>,<table>和<select>这样的元素,限制了出现在其中的元素,
+而像<option>这样的元素，只能出现在相应的元素中.
+受限制的元素使用自定义元素,会导致一些问题
+<table>
+  <my-row>...</my-row>
+</table>
+
+<my-row>将会被当成无效内容,提升到table之外,从而能导致渲染输出后的错误
+解决方案 使用特殊的 is 属性
+<table>
+  <tr is="my-row"></tr>
+</table>
+
+组件组合
+组件之间的通信
+每个组件实例都有自己的鼓励隔离作用域,两个组件间不能直接引用对方的数据
+可以通过一下方式通信
+父组件 ---》 子组件 pass Props
+子组件 ---》 父组件 Emit Events
+
+Props显示的声明字段,它可以从父组件接收到期望的数据
+Vue.component('child',{
+ //声明props 驼峰式
+ props:['myMessage'],
+ //像data一样,prop可以在组件模板内使用,
+ //并且,还可以在VM实例中通过this.message使用
+ templage:'<span>{{message}}</span>'
+})
+
+在父组件
+<child my-message='hello'></child>
+
+
+动态props
+类似绑定一个普通属性到一个表达式,使用v-bind将props属性动态的绑定到父组件
+的数据,父组件数据更新,都可以将数据引下流到子组件 只能绑定在child子元素标签里面
+<div>
+  <input v-model="parentMsg">
+  <br>
+  <child :my-message="parentMsg"></child>
+<div>
+
+传递对象
+todo:{
+  text:'Learn Vue',
+  isComplete:false
+}
+直接
+<todo-item v-bind="todo"></todo-item>
+等同于
+<todo-item
+  v-bind:text="todo.text"
+  v-bind:is-complete="todo.isComplete"
+></todo-item>
+
+单向数据流
+所有props都是由父组件 指向子组件
+父组件变化 子组件跟着变化
+子组件改变 父组件不变
+所以你不应该在子组件内部修改prop,vue会警告
+当我们从父组件接收一个props,然后作为子组件局部数据的属性时,
+可以这么做:
+1:用data接收pros,重新初始化值
+props: ['initialCounter'],
+data: function () {
+  return { counter: this.initialCounter }
+}
+2:定义计算属性,从prop传入的值取值
+props: ['size'],
+computed: {
+  normalizedSize: function () {
+    return this.size.trim().toLowerCase()
+  }
+}
+注意 在 JavaScript 中对象和数组会作为引用类型传入，
+因此，如果 prop 是一个对象或数组，在子组件内部修改对象或数组自身
+，将会影响父组件的状态。
