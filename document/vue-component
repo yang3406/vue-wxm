@@ -111,3 +111,40 @@ computed: {
 注意 在 JavaScript 中对象和数组会作为引用类型传入，
 因此，如果 prop 是一个对象或数组，在子组件内部修改对象或数组自身
 ，将会影响父组件的状态。
+
+Prop验证
+注意 验证会在组件创建前 验证
+所以像default,validator函数中,像data,computer,method组件属性还无法访问
+Vue.component('example', {
+  props: {
+    // 基本类型检查（`null` 表示接受所有类型）
+    propA: Number,
+    // 多种可能的类型
+    propB: [String, Number],
+    // 必须传递，一个的字符串
+    propC: {
+      type: String,
+      required: true
+    },
+    // 数字类型，有一个默认值
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 数组/对象类型，
+    // 应该默认返回一个工厂函数
+    propE: {
+      type: Object,
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // 自定义验证函数
+    propF: {
+      validator: function (value) {
+        return value > 10
+      }
+    }
+  }
+})
+
