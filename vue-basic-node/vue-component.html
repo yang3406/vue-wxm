@@ -35,7 +35,7 @@
     <div>
       <h1>组件间的传值</h1>
       <div>
-        <parent-component></parent-component>
+        <parent-component ></parent-component>
       </div>
     </div>
   </div>
@@ -77,28 +77,44 @@
     name:'cCom',
     props:['objProp','valProp'],
     template:'<div>我是子组件,我来接收对象props值{{this.objProp}},在我里面修改对象props' +
-    '<input v-model="childProp.name"><div>我来接收非对象props值{{childValProp}}修改非对象值<input v-model="childValProp"></div></div>',
+    '<input v-model="childProp.name"><div>我来接收非对象props值{{childValProp}}修改非对象值<input v-model="childValProp"></div>' +
+    '<div>我是触发从子组件传值父组件的方法<button @click="toParent">{{num}}</button></div></div>',
     data:function () {
       return {
          childProp : this.objProp,
-         childValProp: this.valProp
+         childValProp: this.valProp,
+         num:0
+      }
+    },
+    methods:{
+      toParent:function (){
+         this.num++;
+         this.$emit("childToParent",2)
       }
     }
   }
 
-  /*父组件  传递给子组件的值 只能放在c-com 子元素标签的中属性 不能直接传 这样是不行的 some-prop='crossVal' */
+  /*父组件  传递给子组件的值 只能放在c-com 子元素标签的属性中 不能直接传 这样是不行的 some-prop='crossVal' */
+  /*同样 监听方法也只能 只能放在c-com中 用v-on: 直接监控*/
   var pCom = {
-    name:'pCom',
+    name:'pComcom',
     template: "<div>我是父组件,想要传值给子组件<input v-model='crossVal.name'>" +
-    "<p>{{crossVal}}</p><p>{{signVal}}</p><c-com :obj-prop='crossVal' :val-prop='signVal'></c-com></div>",
+    "<p>{{crossVal}}</p><p>{{signVal}}</p><c-com :obj-prop='crossVal' :val-prop='signVal' v-on:childToParent='parentWay'></c-com>" +
+    "<div>我是从自组件触发的方法使组件增加的值<p>{{total}}</p></div></div>",
     components:{
       cCom:cCom
     },
     data:function () {
       return {
         crossVal:{name:'xxx',age:'18'},
-        signVal:"kkk"
+        signVal:"kkk",
+        total:2
       }
+    },
+    methods:{
+      parentWay:function(item){
+        this.total += item;
+      },
     }
   }
 
@@ -110,6 +126,11 @@
         template:"#templateID"
       },
       parentComponent:pCom
+    },
+    methods:{
+      add(){
+        /*this.total += 1;*/
+      }
     }
   })
 </script>

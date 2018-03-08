@@ -148,3 +148,32 @@ Vue.component('example', {
   }
 })
 
+自定义事件 $on(监听事件) $emit(触发事件)
+子组件 ---》 父组件 Emit Events
+可以在父组件中使用v-on监听子组件触发的事件,
+但是不能用$on来监听触发事件,必须在模板中直接使用v-on来监听
+例如<button-counter v-on:increment="incrementTotal"></button-counter>
+
+为组件绑定原生事件
+自定义组件 上面直接监控是不会触发方法的 例如
+<global-component v-on:click="func"></global-component>
+当点击时是不会触发的
+要绑定原生事件 加上.native
+<global-component v-on:click.native="func"></global-component>
+
+.sync修饰符
+对prop进行双向绑定 vue1.x中.sync 修饰符实现
+当子组件修改带有.sync修饰的prop时,设置的值就会反向映射到父组件中
+vue2.0 < 2.30中移除 因为不好维护
+vue2.3.0 重新引入了.sync修饰符 实现原理是组件自动扩充额外的v-on监听器 用法如下
+例如
+<comp :foo.sync="bar"></comp>
+会被扩充为：
+<comp :foo="bar" @update:foo="val => bar = val"></comp>
+对于子组件，如果想要更新 foo 的值，则需要显式地触发一个事件，而不是直接修改 prop：
+this.$emit('update:foo', newValue)
+
+vue.2.2.0 新增 v-model
+
+
+
