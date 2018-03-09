@@ -175,5 +175,18 @@ this.$emit('update:foo', newValue)
 
 vue.2.2.0 新增 v-model
 
+非父子组件间的通信
+使用空的组件做连接桥
+看例子 一定记得 bind(this)
+
+slot 插槽
+编译作用域
+<!-- 无效 -->
+<child-component v-show="someChildProperty"></child-component>
+因为从父组件 传给子组件除了 v-bind: prop 属性值生效 其余的会被替换掉
+
+单个插槽
+除非子组件模板包含至少一个<slot>插口 否则父模板的内容将会被完全替换。
+
 
 

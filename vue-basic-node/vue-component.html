@@ -17,7 +17,7 @@
       <div>
         <h1>局部组件的调用</h1>
         <div is="childComponent"></div>
-        <child-component></child-component>
+        <child-component>{{kill}}</child-component>
       </div>
       <div>
         <h1>组件模板标签</h1>
@@ -36,6 +36,12 @@
       <h1>组件间的传值</h1>
       <div>
         <parent-component ></parent-component>
+      </div>
+      <div>
+        <p>非父子间的传值</p>
+          <foo></foo>
+          <hr>
+          <bar></bar>
       </div>
     </div>
   </div>
@@ -118,19 +124,70 @@
     }
   }
 
+  /*非父子组件间的传值*/
+  //注册一个空的作为中转站
+  var eventBus = new Vue({});
+
+  var foo ={
+    template: '<div><p>the count of foo is {{fooCount}}</p>' +
+  '<button @click="addBar">add bar\'s count</button></div>',
+    data:function () {
+      return {
+        fooCount:0
+      }
+    },
+    methods:{
+      addBar:function () {
+        //触发事件
+        eventBus.$emit('addBar')
+      }
+    },
+    mounted:function(){
+      eventBus.$on('addFoo',function (num) {
+        this.fooCount += num;
+      }.bind(this));
+      //必须将this绑定在组件实例上
+    }
+  }
+
+  // bar 组件
+  var bar = {
+    template: '<div><p>the count of bar is {{barCount}}</p>' +
+    '<button @click="addFoo">add foo\'s count</button></div>',
+    data: function () {
+      return {
+        barCount: 0
+      }
+    },
+    methods: {
+      addFoo: function () {
+        // 触发事件，同时传递一个参数
+        eventBus.$emit('addFoo', 2)
+      }
+    },
+    // 在 组件创建的钩子函数中 监听事件
+    mounted: function () {
+      eventBus.$on('addBar', function () {
+        this.barCount++
+      }.bind(this))
+    }
+  }
+
   new Vue({
     el:'#app',
+    data:function(){
+      return {
+        kill:'yjs'
+      }
+    },
     components:{
       childComponent:childComponent,
       templateModel:{
         template:"#templateID"
       },
-      parentComponent:pCom
-    },
-    methods:{
-      add(){
-        /*this.total += 1;*/
-      }
+      parentComponent:pCom,
+      foo:foo,
+      bar:bar
     }
   })
 </script>
