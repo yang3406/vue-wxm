@@ -1,0 +1,24 @@
+var HtmlUtil = {
+2     /*1.用浏览器内部转换器实现html转码*/
+3     htmlEncode:function (html){
+4         //1.首先动态创建一个容器标签元素，如DIV
+5         var temp = document.createElement ("div");
+6         //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+7         (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+8         //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+9         var output = temp.innerHTML;
+10         temp = null;
+11         return output;
+12     },
+13     /*2.用浏览器内部转换器实现html解码*/
+14     htmlDecode:function (text){
+15         //1.首先动态创建一个容器标签元素，如DIV
+16         var temp = document.createElement("div");
+17         //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+18         temp.innerHTML = text;
+19         //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+20         var output = temp.innerText || temp.textContent;
+21         temp = null;
+22         return output;
+23     }
+24 };

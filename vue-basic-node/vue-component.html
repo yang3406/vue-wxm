@@ -83,19 +83,29 @@
     name:'cCom',
     props:['objProp','valProp'],
     template:'<div>我是子组件,我来接收对象props值{{this.objProp}},在我里面修改对象props' +
-    '<input v-model="childProp.name"><div>我来接收非对象props值{{childValProp}}修改非对象值<input v-model="childValProp"></div>' +
-    '<div>我是触发从子组件传值父组件的方法<button @click="toParent">{{num}}</button></div></div>',
+    '<input v-focus v-model="childProp.name"><div>我来接收非对象props值{{childValProp}}修改非对象值<input v-model="childValProp"></div>' +
+    '<div>我是触发从子组件传值父组件的方法<button @click="toParent">{{num}}</button></div>' +
+    '<p>用来接收槽点值:</p><slot name="slot-name"></slot><slot name="test">父组件没有这个槽点哦</slot><slot></slot></div>',
     data:function () {
       return {
          childProp : this.objProp,
          childValProp: this.valProp,
-         num:0
+         num:0,
+        childComponent:'kkkkko'
       }
     },
     methods:{
       toParent:function (){
          this.num++;
          this.$emit("childToParent",2)
+      }
+    },
+    //自定义指令
+    directives:{
+      focus:{
+       inserted:function (el) {
+         el.focus();
+       }
       }
     }
   }
@@ -105,8 +115,10 @@
   var pCom = {
     name:'pComcom',
     template: "<div>我是父组件,想要传值给子组件<input v-model='crossVal.name'>" +
-    "<p>{{crossVal}}</p><p>{{signVal}}</p><c-com :obj-prop='crossVal' :val-prop='signVal' v-on:childToParent='parentWay'></c-com>" +
-    "<div>我是从自组件触发的方法使组件增加的值<p>{{total}}</p></div></div>",
+    "<p>{{crossVal}}</p><p>{{signVal}}</p><c-com ref='profile' :obj-prop='crossVal' :val-prop='signVal' v-on:childToParent='parentWay'>" +
+    "<p>没有放入槽点的值</p><p slot='slot-name'>放入槽点从父组件带过来的槽点值</p></c-com>" +
+    "<div>我是从自组件触发的方法使组件增加的值<p>{{total}}</p><p>子组件绑定ref值</p><p>{{ref}}</p></div>" +
+    "</div>",
     components:{
       cCom:cCom
     },
@@ -114,12 +126,14 @@
       return {
         crossVal:{name:'xxx',age:'18'},
         signVal:"kkk",
-        total:2
+        total:2,
+        ref:0
       }
     },
     methods:{
       parentWay:function(item){
         this.total += item;
+        ref = this.$refs.profile;
       },
     }
   }

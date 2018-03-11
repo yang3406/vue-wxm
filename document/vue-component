@@ -187,6 +187,95 @@ slot 插槽
 
 单个插槽
 除非子组件模板包含至少一个<slot>插口 否则父模板的内容将会被完全替换。
+当子组件只有一个没有name的slot时,父组件的内容片段将会插入到子组件所在的slot DOM位置,
+并替换掉slot标签本身
+最初在<slot>的内容都被视为备用内容,在宿主内容为空,且没有插入内容时才显示
+多个插槽
+根据name 填充内容
+2.1.0 新增作用域插槽
+在子组件中，将数据传递到插槽，就像你将 props 传递给组件一样：
+<div class="child">
+  <slot text="hello from child"></slot>
+</div>
+父组件在template用slot-scope来接收组件里面的slot属性
+<div class="parent">
+  <child>
+    <template slot-scope="props">
+       <span>hello from parent</span>
+       <span>{{props.text}}</span>
+    </template>
+  </child>
+</div>
+动态组件
+让多个组件使用同一个挂载点,然后动态的在他们之间切换.
+可以使用Vue保留的<component>元素,把多个组件动态的绑定到<compontent>
+的is属性上:
+<component v-bind:is="currentView"></component>
 
+var vm = new Vue({
+  el: '#example',
+  data: {
+    currentView: 'home'
+  },
+  components: {
+    home: { /* ... */ },
+    posts: { /* ... */ },
+    archive: { /* ... */ }
+  }
+})
 
+keep-alive
+可以把切换出去的组件保留在内存中,可以保留它的状态或避免重复污染
+
+自定义指令
+ 默认指令v-model v-show
+ 代码重用和抽象是用的组件
+ 操作底层dom访问,用到的是指令
+ 例子v-focus
+ // 注册一个名为 `v-focus` 的全局自定义指令
+ Vue.directive('focus', {
+   // 当绑定的元素插入到 DOM 时调用此函数……
+   inserted: function (el) {
+     // 元素调用 focus 获取焦点
+     el.focus()
+   }
+ })
+ 局部指令
+ directives: {
+   focus: {
+     // 指令定义对象
+     inserted: function (el) {
+       el.focus()
+     }
+   }
+ }
+ 使用<input v-focus>
+
+钩子函数
+bind 在指令第一次绑定到值时调用,只调用一次,可执行一次性的初始化工作
+inserted   在已绑定的元素插入父节点时调用，只能保证父节点存在,不一定在document中
+update update：在包含指令的组件的 VNode 更新后调用，但可能之前其子组件已更新。
+指令的值可能更新或者还没更新，然而可以通过比较绑定的当前值和旧值，
+来跳过不必要的更新
+componentUpdated：在包含指令的组件的 VNode 更新后调用，并且其子组件的 VNode 已更新。
+unbind 在指令从元素上解除绑定时调用，只会调用一次
+钩子函数的参数
+el 指令绑定的元素。可以用于直接操作 DOM。
+binding：一个对象，包含以下属性 好多
+vnode：由 Vue 编译器(Vue’s compiler)生成的虚拟 Node 节点(virtual node)
+oldVnode：之前的虚拟 Node 节点(virtual node)，只在 update 和 componentUpdated 钩子函数中可用。
+
+函数简写
+在许多情况下，可能只需要在 bind 和 update
+钩子函数上定义过相同的行为就足够了，而无需关心其他钩子函数。例如：
+Vue.directive('color-swatch', function (el, binding) {
+  el.style.backgroundColor = binding.value
+})
+
+<div v-demo="{ color: 'white', text: 'hello!' }"></div>
+
+Vue.directive('demo', function (el, binding) {
+  console.log(binding.value.color) // => "white"
+  console.log(binding.value.text)  // => "hello!"
+})
 

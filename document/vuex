@@ -79,7 +79,7 @@ new Vuex.store({
 3:this.$store.getters.eqnum(2)
 
 mapGetters辅助函数
-把sotore的getters映射到局部计算属性
+把store的getters映射到局部计算属性
 import { mapGetters } from 'vuex'
 
 export default {
