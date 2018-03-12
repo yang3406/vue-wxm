@@ -1,0 +1,11 @@
+mouseenter(mouseleave)和mouseover(mouseout)的区别
+mouseenter不支持事件冒泡
+mouseover支持事件冒泡
+详情:http://www.jb51.net/article/115446.htm
+javascript中mouseover和mouseenter的区别主要在于监听对象的子元素是否触发事件。
+mouseover：鼠标移入监听对象中，或者从监听对象的一个子元素移入另一个子元素中时触发该事件。
+mouseenter：鼠标移入监听对象时触发，在监听对象内移动不会触发。
+
+
+
+
