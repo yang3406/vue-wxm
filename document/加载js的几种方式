@@ -1,0 +1,86 @@
+
+require.js 异步加载
+<script src="js/require.js" data-main="js/main"></script>
+入口 js/main.js
+
+依赖其他模块 moduleA moduleB在main.js在同一个目录
+require(['moduleA','moduleB'],function(moduleA,moduleB){
+
+})
+如上栗:
+require(Array,callback)
+第一个参数为依赖的模块
+第二个为回调,当前面的模块都加载成功后,会被调用
+require() 异步加载moduleA,moduleB,浏览器不会失去响应.当模块加载完后,才会运行回调
+
+require.config()
+对模块加载行为进行自定义,require.config()写在住模块main.js的头部。参数是对象
+这个对象的paths属性指定各个模块的加载路径 加载的模块都和main.js的同层
+require.config(paths:{
+    "jquery": "jquery.min",
+    "underscore": "underscore.min",
+    "backbone": "backbone.min"
+    })
+// 模块和main.js不在同一层 写法一
+require.config({
+　　　　paths: {
+　　　　　　"jquery": "lib/jquery.min",
+　　　　　　"underscore": "lib/underscore.min",
+　　　　　　"backbone": "lib/backbone.min"
+　　　　}
+　　});
+// 模块和main.js不在同一层 写法二
+require.config({
+    baseUrl:'js/lib',
+    paths:{
+       "jquery": "jquery.min",
+       "underscore": "underscore.min",
+       "backbone": "backbone.min"
+    }
+})
+//也可以直接指定远程服务器
+require.config({
+　paths: {
+　　　"jquery": "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min"
+　}
+});
+
+也可以把多个js合并 减少http请求
+
+注意
+通过require.js加载的模块,必须采用AMD规范来写
+具体来说，就是模块必须采用特定的define()定义
+//diy一个参数为数组依赖的模块,没有,可以不写,第二个为回调
+//a.js
+define(['myLib'],function(myLib){
+   function foo(param1,param1){
+     mylib.doSomething(a)
+   }
+
+   return{
+     foo:foo
+   }
+})
+//b.js 引入
+define([a],function(a){
+  alert(a.foo(p1,p2));
+})
+
+加载非规范的模块 shim
+非规范的模块 必须先定义它们的特征
+//exports 外部调用名字 deps依赖数组
+require.config({
+  baseUrl:'resources/scripts/',
+  paths:{
+    "jquery":'lib/jquery.1.12.min',
+     "highcharts": "lib/highcharts"
+  },
+  shim:{
+    exports:'highcharts',
+    deps:["jquery"]
+  }
+})
+
+
+
+
