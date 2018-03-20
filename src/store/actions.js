@@ -1,5 +1,6 @@
 import {
-  fetchOpenId
+  fetchOpenId,
+  getHsCode
 } from "../service/getData";
 
 import {
@@ -11,10 +12,11 @@ export default {
   async getOpenId({
     commit,state
    }){
-    fetchOpenId().then(res => {
-      if(res.result && res.wxmpuser){
-        commit(RECORD_OPENID,res.wxmpuser);
-      }
+    getHsCode({size:7,pageNo:1}).then(function (response) {
+      debugger
+      console.log(response)
+    }).catch(function (error) {
+      console.log(error)
     })
 
   }
