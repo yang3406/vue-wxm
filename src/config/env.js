@@ -12,7 +12,8 @@ let imgBaseUrl;
 
 if(process.env.NODE_ENV == "development"){
   wechatUrl = 'http://yjsvip.hk1.tunnelfrp.cc';
-  baseDataUrl = 'http://localhost:8080/mobile/'
+  /*baseDataUrl = 'http://localhost:8080/mobile/';*/
+  baseDataUrl = "http://wxm.guanmaoyun.com/";
 }else if(process.env.NODE_ENV == "production"){
 
 }
