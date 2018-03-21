@@ -71,7 +71,7 @@
               <div></div>
               <div></div>
             </div>
-            <button type="submit" id="logininuser"><a href="javascript:void(0);">登录</a></button>
+            <button @click="loginIn" type="submit" id="logininuser"><a href="javascript:void(0);">登录</a></button>
           </div>
         </div>
       </form>
@@ -121,12 +121,9 @@
         loop: true,
         autoplay: 2000
       });
-
       if(!getSessionStore(RECORD_OPENID)){
          this.getOpenId();
-
       }
-
 
     },
     computed:{
@@ -143,8 +140,12 @@
           this.showMenu = false;
         }
       },
+      loginIn:function () {
+
+      },
       ...mapActions([
-        'getOpenId'
+        'getOpenId',
+        'getHsCode'
       ])
 
     }
