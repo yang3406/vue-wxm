@@ -27,7 +27,7 @@
     </div>
 
     <div v-else>
-      <form v-if="loginWay">
+      <form v-if="loginWay" @submit.prevent="onSubmit">
         <div class="loginout">
           <header class="user-login-text">
             <h1>用户管理</h1>
@@ -51,7 +51,7 @@
         </div>
       </form>
 
-      <form v-else>
+      <form v-else @submit.prevent="onSubmit">
         <div class="loginin">
           <header class="user-login-text">
             <h1>用户登录</h1>
@@ -71,7 +71,7 @@
               <div></div>
               <div></div>
             </div>
-            <button @click="loginIn" type="submit" id="logininuser"><a href="javascript:void(0);">登录</a></button>
+            <button @click="loginIn" ><a href="javascript:void(0);">登录</a></button>
           </div>
         </div>
       </form>
@@ -96,13 +96,13 @@
 </template>
 
 <script>
-  import {mapState,mapActions} from 'vuex'
+  import {mapState,mapGetters,mapActions} from 'vuex'
   import {tabMenuList, swiperImgList} from 'src/config/tabmenu.js'
   import {getSessionStore} from '../../config/mUtils'
-  import {RECORD_OPENID} from '../../store/mutation-types'
   import 'src/plugins/swiper.min.js'
   import 'src/style/swiper.min.css'
   import 'src/config/expandjs'
+  import * as fetch from 'src/fetch/index'
 
   export default {
     data() {
@@ -121,13 +121,23 @@
         loop: true,
         autoplay: 2000
       });
-      if(!getSessionStore(RECORD_OPENID)){
-         this.getOpenId();
+      debugger
+      if(this.getLoginStatus){
+        if(!this.getOpenId){
+          fetch.getOpenId()
+        }
       }
+
+      //var obj = this.getHsCode();
+
 
     },
     computed:{
-
+      ...mapGetters([
+        'getOpenId',
+        'getLoginStatus',
+        'getUserInfo'
+      ])
     },
     methods: {
       toggleTab: function (param, event) {
@@ -144,7 +154,6 @@
 
       },
       ...mapActions([
-        'getOpenId',
         'getHsCode'
       ])
 

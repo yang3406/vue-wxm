@@ -6,6 +6,8 @@ require.js 异步加载
 依赖其他模块 moduleA moduleB在main.js在同一个目录
 require(['moduleA','moduleB'],function(moduleA,moduleB){
 
+
+  return
 })
 如上栗:
 require(Array,callback)
@@ -82,5 +84,20 @@ require.config({
 })
 
 
+//   js/script/alertdesc.js
+define(['script/desc'],function(desc){
+    return function (){
+        alert(JSON.stringify(desc));
+    };
+})
 
+//   然后在main.js的再引入  js/script/main.js
+   引入的是上一个返回的值或对象
+   require(['script/alertdesc'],function(alertdesc){
+     alertdesc();
+
+作者：wuqke
+链接：https://www.jianshu.com/p/b8a6824c8e07
+來源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 http://www.jb51.net/article/120949.htm

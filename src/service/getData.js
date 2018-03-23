@@ -42,6 +42,4 @@ export function fetch(url,params) {
     )
 }
 
-//export const getHsCode = (param) => axios.post(baseDataUrl+'hscode/app_query',{size:7,pageNo:1})
-//export const queryHsCode = (param) => axios.post('/hscode/app_query',param)
 

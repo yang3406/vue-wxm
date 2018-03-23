@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import FastClick from 'fastclick'
-import store from './store'
+import store from './vuex'
 import routes from './router/router'
 import {routerMode} from './config/env'
 import './config/rem'
