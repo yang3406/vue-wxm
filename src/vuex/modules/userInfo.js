@@ -12,15 +12,9 @@ const state = {
 }
 
 const getters = {
-    getLoginStatus: (state) => {
-        state.loginStatus
-    },
-     getUserInfo:(state) =>{
-         state.userInfo
-     },
-     getOpenId:(state) =>{
-       state.openId
-     }
+    getLoginStatus: (state) =>  state.loginStatus,
+    getUserInfo:(state) => state.userInfo,
+    getStateOpenId:(state) => state.openId
 }
 
 const mutations = {

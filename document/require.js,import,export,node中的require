@@ -1,5 +1,5 @@
 
-require.js 异步加载
+require.js 异步加载  AMD规范 主要用于浏览器
 <script src="js/require.js" data-main="js/main"></script>
 入口 js/main.js
 
@@ -101,3 +101,64 @@ define(['script/desc'],function(desc){
 來源：简书
 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 http://www.jb51.net/article/120949.htm
+
+
+ES6 的import 和 export 实现了模块功能
+可以取代现有的CommonJS和AMD规范，成为浏览器和服务器通用的模块解决方案。
+ES6模块主要有两个功能：export和import
+export用于对外输出本模块（一个文件可以理解为一个模块）变量的接口
+import用于在一个模块中加载另一个含有export接口的模块。
+
+使用一: 导出固定变量名
+//a.js 导出
+var sex="boy";
+var sayName=function(name){
+　　console.log(name)
+}
+//要加大括号 不加 export "boy"为常量 引入的读取不到 输出的变量才行
+export {sex,sayName}
+也可以直接
+export const secx = "boy"
+export const sayName=function(name){
+　　console.log(name)
+}
+
+//b.js 引入 引入的变量名和引出的变量名一致
+import {sex,sayName} from './a.js'
+
+使用二：导出自定义变量名 default 注意一个文件里面只要有一个default
+//a.js 导出
+var sex="boy";
+//有 default 不加{} 加了变为导出一个对象 这里是导出变量
+export default sex;
+
+//b.js 导入  param 为随便命名
+import param from './a.js'
+//默认导出对象 a.js
+export default {
+   sayName(name){
+      console.log(name)
+   },
+   sex:'boy'
+   }
+}
+//引入默认对象 b.js
+import getA from './a.js'
+getA.sex;
+getA.sayName("bill")
+
+使用3:对于引用 可以把所有a.js里面的export的变量全部以对象形式引入到a.js中
+//a.js
+export const sex = "boy"
+export const name = "liLy"
+export const sayHi = function(){
+   console.log("say HI")
+}
+
+//b.js
+import * as getA from a.js
+getA.sex;
+getA.sayHi("hello world")
+
+
+COMMON JS 主要用于服务器 如seaJS

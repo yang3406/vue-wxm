@@ -111,7 +111,7 @@
         isActive: true,
         swiperImgList: swiperImgList,
         tabMenuList,
-        loginWay: false
+        loginWay: this.getLoginStatus
       }
     },
     mounted() {
@@ -121,20 +121,18 @@
         loop: true,
         autoplay: 2000
       });
-      debugger
-      if(this.getLoginStatus){
-        if(!this.getOpenId){
-          fetch.getOpenId()
+
+      /*if(!this.getLoginStatus){
+        if(!this.getStateOpenId){
+           this.getOpenId();
+        }else{
+          this.autoLogin(this.getStateOpenId)
         }
-      }
-
-      //var obj = this.getHsCode();
-
-
+      }*/
     },
     computed:{
       ...mapGetters([
-        'getOpenId',
+        'getStateOpenId',
         'getLoginStatus',
         'getUserInfo'
       ])
@@ -150,11 +148,40 @@
           this.showMenu = false;
         }
       },
-      loginIn:function () {
-
+      loginIn() {
+         /*if(this.)*/
+         this.$state.dispatch("setLoadingState",true)
       },
+      getOpenId:async function(){
+         /*const openId = fetch.getOpenId().then(res => {
+            if(res.result){
+              this.autoLogin(res.wxmpuser)
+            }
+         });*/
+        const res = await fetch.getOpenId();
+        await this.autoLogin(res.wxmpuser)
+      },
+      autoLogin:async function (openId) {
+        if(openId){
+         const res = fetch.autoLogin(openId)
+           .then(res => {
+             console.log(res.data);
+             if(res.success){
+               this.setUserInfo(res.data);
+             }
+           })
+           .catch(error => {
+              console.log(error)
+           });
+
+        }
+      },
+      getHSCode:async function() {
+        var obj = await fetch.fetchHSCode();
+      }
+      ,
       ...mapActions([
-        'getHsCode'
+        'setUserInfo',
       ])
 
     }
