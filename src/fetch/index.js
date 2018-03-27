@@ -18,6 +18,11 @@ const autoLogin = (openId) => {
   return fetch("/app_login",params)
 }
 
+//登录
+const loginIn = (params) => {
+  return fetch('/app_login',params)
+}
+
 /*获取HSCode*/
  const fetchHSCode = (params) => {
   return fetch('/hscode/app_query',params)
@@ -25,5 +30,6 @@ const autoLogin = (openId) => {
 export  {
   getOpenId,
   fetchHSCode,
-  autoLogin
+  autoLogin,
+  loginIn
 }

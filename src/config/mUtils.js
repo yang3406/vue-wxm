@@ -1,3 +1,4 @@
+import store from '../vuex'
 /**
  * 存储sessionStorage
  * */
@@ -18,6 +19,14 @@ export const getSessionStore = (name) => {
   return window.sessionStorage.getItem(name)
 }
 
+export const alert = (msg) =>{
+   store.dispatch('setAlertState',true);
+   store.dispatch('setAlertMsg',msg);
+   setTimeout(() => {
+     store.dispatch("setAlertState",false)
+   },1500)
+
+}
 
 
 

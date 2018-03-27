@@ -1,7 +1,10 @@
 
 //公共
 export const COM_LOADING_STATUS = 'COM_LOADING_STATUS'
-
+export const COM_ALERT_STATUS = 'COM_ALERT_STATUS'
+export const COM_TOAST_STATUS = 'COM_TOAST_STATUS'
+export const COM_ALERT_MSG = 'COM_ALERT_MSG'
+export const COM_TOAST_MSG = 'COM_TOAST_MSG'
 
 
 //userInfo

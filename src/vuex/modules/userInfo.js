@@ -32,7 +32,7 @@ const mutations = {
 const actions = {
   setUserInfo:({commit},res) => {
     util.setSessionStore("loginStatus",true)
-    util.setSessionStore("userInfo",res.data)
+    util.setSessionStore("userInfo",res)
     commit(types.SET_USER_INFO,res)
     commit(types.SET_LOGIN_STATUS,true)
   }
@@ -42,6 +42,7 @@ const actions = {
 export default {
    state,
    getters,
+   actions,
   mutations
 }
 

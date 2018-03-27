@@ -27,54 +27,8 @@
     </div>
 
     <div v-else>
-      <form v-if="loginWay" @submit.prevent="onSubmit">
-        <div class="loginout">
-          <header class="user-login-text">
-            <h1>用户管理</h1>
-          </header>
-
-          <div class="user-login-container ">
-            <table class="table-query-deatail">
-              <tr>
-                <th>用户名</th>
-                <td name="username"></td>
-              </tr>
-              <tr>
-                <th>所属公司</th>
-                <a>
-                  <td name="companyName"></td>
-                </a>
-              </tr>
-            </table>
-            <button type="submit" id="loginoutuser"><a href="javascript:void(0);">退出登录</a></button>
-          </div>
-        </div>
-      </form>
-
-      <form v-else @submit.prevent="onSubmit">
-        <div class="loginin">
-          <header class="user-login-text">
-            <h1>用户登录</h1>
-          </header>
-          <div class="user-login-container">
-            <table class="table-query-deatail">
-              <tr>
-                <th>用户名</th>
-                <td><input placeholder="请输入用户名" name="username" class="placeholder"/></td>
-              </tr>
-              <tr>
-                <th>密码</th>
-                <td><input placeholder="请输入密码" type="password" name="password" class="placeholder"/></td>
-              </tr>
-            </table>
-            <div>
-              <div></div>
-              <div></div>
-            </div>
-            <button @click="loginIn" ><a href="javascript:void(0);">登录</a></button>
-          </div>
-        </div>
-      </form>
+        <user-detail v-if="loginWay"></user-detail>
+        <user-login v-else @toogle="toogleChange"></user-login>
     </div>
 
     <div class="weui-tabbar">
@@ -97,12 +51,14 @@
 
 <script>
   import {mapState,mapGetters,mapActions} from 'vuex'
-  import {tabMenuList, swiperImgList} from 'src/config/tabmenu.js'
+  import {tabMenuList, swiperImgList} from '@/config/tabmenu.js'
   import {getSessionStore} from '../../config/mUtils'
-  import 'src/plugins/swiper.min.js'
-  import 'src/style/swiper.min.css'
-  import 'src/config/expandjs'
-  import * as fetch from 'src/fetch/index'
+  import '@/plugins/swiper.min.js'
+  import '@/style/swiper.min.css'
+  import '@/config/expandjs'
+  import * as fetch from '@/fetch/index'
+  import userDetail from '@/components/user/userDetail'
+  import userLogin from '@/components/user/userLogin'
 
   export default {
     data() {
@@ -137,6 +93,10 @@
         'getUserInfo'
       ])
     },
+    components:{
+      userLogin,
+      userDetail
+    },
     methods: {
       toggleTab: function (param, event) {
         event.preventDefault();
@@ -147,10 +107,6 @@
           this.isActive = false;
           this.showMenu = false;
         }
-      },
-      loginIn() {
-         /*if(this.)*/
-         this.$state.dispatch("setLoadingState",true)
       },
       getOpenId:async function(){
          /*const openId = fetch.getOpenId().then(res => {
@@ -176,12 +132,9 @@
 
         }
       },
-      getHSCode:async function() {
-        var obj = await fetch.fetchHSCode();
-      }
-      ,
       ...mapActions([
         'setUserInfo',
+        'setLoadingState'
       ])
 
     }
@@ -191,6 +144,7 @@
 
 <style lang="css" scoped>
   @import "../../style/queryIndex.css";
+
 
   .weui-tabbar {
     display: -webkit-flex;
