@@ -1,10 +1,13 @@
 import axios from 'axios'
 import qs from "qs"
 import {wechatUrl, baseDataUrl} from "../config/env";
+import store from '../vuex'
+import {autoLogin} from './index'
 
 /*axios.defaults.baseUrl = baseDataUrl;*/
 axios.defaults.timeout = 10000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+axios.defaults.withCredentials=true;
 
 //before request 序列化参数
 axios.interceptors.request.use(function (config) {
@@ -19,10 +22,18 @@ axios.interceptors.request.use(function (config) {
 
 // after response 获取请求返回后的值
 axios.interceptors.response.use(res => {
-  debugger
+  //登录超时
+  if(res.data.status == "3"){
+    const openID = store.getters.getStateOpenId || "1001";
+    if(openID ){
+      return autoLogin(openID)
+    }
+  }
+
   if (!(res.data.status == 0 || res.data.status == "操作成功" || res.data.result)){
     return Promise.reject(res.data.message)
   }
+
   return res.data;
 }, (error) => {
   return Promise.reject(error)
@@ -33,6 +44,7 @@ export const fetch = function (url, params) {
   return new Promise((resolve, reject) => {
     axios.post(baseDataUrl + url, params)
       .then(response => {
+        response.data == "" ? response.data = {'status':0} :response.data = response.data;
         resolve(response.data)
       }, err => {
         reject(err)

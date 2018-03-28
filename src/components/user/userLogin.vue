@@ -40,7 +40,7 @@
     }
   },
   computed:{
-
+    ...mapGetters(["getStateOpenId"])
   },
   methods:{
     ...mapActions({setUserInfo:'setUserInfo'}),
@@ -55,17 +55,13 @@
         imo : "1001",
         deviceType : 3,
         loginTime : new Date().getTime(),
-        openId : "123456789"
+        openId : this.getStateOpenId
       }
       this.$store.dispatch("setLoadingState",true)
       fetch.loginIn(params)
         .then(response => {
-          console.log(response)
-          if(response.status == 1){
             this.$store.dispatch("setLoadingState",false)
             this.setUserInfo(response)
-            this.$router.replace('/home');
-          }
         }).catch(err => {
           this.$store.dispatch("setLoadingState",false)
           console.log(err);

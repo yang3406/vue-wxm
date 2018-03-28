@@ -26,10 +26,14 @@
       </section>
     </div>
 
-    <div v-else>
-        <user-detail v-if="loginWay"></user-detail>
-        <user-login v-else @toogle="toogleChange"></user-login>
-    </div>
+    <template v-else>
+        <div v-if="getLoginStatus" >
+          <user-detail key="detail"></user-detail>
+        </div>
+      <div v-else>
+        <user-login  key="login"></user-login>
+      </div>
+    </template>
 
     <div class="weui-tabbar">
       <a href="#tab1" class="weui-tabbar__item" :class="{active:isActive}" @click="toggleTab('service',$event)">
@@ -50,7 +54,7 @@
 </template>
 
 <script>
-  import {mapState,mapGetters,mapActions} from 'vuex'
+  import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
   import {tabMenuList, swiperImgList} from '@/config/tabmenu.js'
   import {getSessionStore} from '../../config/mUtils'
   import '@/plugins/swiper.min.js'
@@ -66,8 +70,7 @@
         showMenu: true,
         isActive: true,
         swiperImgList: swiperImgList,
-        tabMenuList,
-        loginWay: this.getLoginStatus
+        tabMenuList
       }
     },
     mounted() {
@@ -78,13 +81,13 @@
         autoplay: 2000
       });
 
-      /*if(!this.getLoginStatus){
+      if(!this.getLoginStatus){
         if(!this.getStateOpenId){
            this.getOpenId();
         }else{
           this.autoLogin(this.getStateOpenId)
         }
-      }*/
+      }
     },
     computed:{
       ...mapGetters([
@@ -115,15 +118,16 @@
             }
          });*/
         const res = await fetch.getOpenId();
+        this.RECORD_OPENID(res.wxmpuser)
         await this.autoLogin(res.wxmpuser)
       },
       autoLogin:async function (openId) {
         if(openId){
          const res = fetch.autoLogin(openId)
            .then(res => {
-             console.log(res.data);
-             if(res.success){
-               this.setUserInfo(res.data);
+             console.log(res);
+             if(res.status == 1){
+               this.setUserInfo(res);
              }
            })
            .catch(error => {
@@ -135,7 +139,8 @@
       ...mapActions([
         'setUserInfo',
         'setLoadingState'
-      ])
+      ]),
+      ...mapMutations(['RECORD_OPENID'])
 
     }
   }

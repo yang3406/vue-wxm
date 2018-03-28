@@ -17,6 +17,7 @@ if(FastClick in document){
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);
+Vue.config.debug =true
 
 const router = new VueRouter({
    mode: routerMode,

@@ -35,7 +35,13 @@ const actions = {
     util.setSessionStore("userInfo",res)
     commit(types.SET_USER_INFO,res)
     commit(types.SET_LOGIN_STATUS,true)
-  }
+  },
+  setLoginOut:({commit}) =>{
+    util.setSessionStore("loginStatus",false)
+    util.setSessionStore("userInfo","");
+    commit(types.SET_USER_INFO,"");
+    commit(types.SET_LOGIN_STATUS,false)
+},
 }
 
 
