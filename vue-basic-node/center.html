@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>水平垂直居中</title>
+</head>
+<style type="text/css">
+ /* .out-div{
+    position: relative;
+    width: 80px;height: 80px;background-color: #bababa;
+  }
+  .inner-div{
+    position: absolute;left: 50%;top: 50%;
+    width: 20px;height: 20px;background-color: yellow;
+    transform: translate(-50%)
+  }*/
+  .out-div{
+    display: flex;
+    width: 80px;height: 80px;background-color: #bababa;
+    justify-content: center;
+    align-items: center;
+  }
+  .inner-div{
+    width: 20px;height: 20px;background-color: yellow;
+  }
+</style>
+<body>
+ <div class="out-div">
+     <div class="inner-div"></div>
+ </div>
+<ul>
+  <li>12</li>
+  <li>3</li>
+  <li>3</li>
+  <li>4</li>
+  <li>6</li>
+</ul>
+<input id="node_id"><button id="query_node">查询节点</button>
+</body>
+<script>
+  var lis = document.querySelectorAll("li");
+  for(var j=0;j<lis.length;j++){
+    console.log(lis[j].innerHTML)
+  }
+  var arr = [1,2,3,4]
+  var str = arr.join("??");
+  console.log(str);
+  var str2 = "13,455,3444,kkk";
+  var arr2 = str2.split(",")
+  console.log(arr2);
+
+  var nodeList = {id:'p',name:'name',c:true,children:[
+    {id:'p_c',name:'1_name',c:true,children:[
+      {id:'p_c_1',name:'1_name_1',c:false,children:[]},
+      {id:'p_c_2',name:'1_name_3',c:true,children:[
+        {id:'p_c_2_1',name:'1_name_3_1',c:false,children:[]}
+      ]}
+    ]},
+    {id:'p_c2',name:'2_name',c:false,children:[
+    ]}
+  ]}
+
+  var queryNode = document.getElementById("query_node");
+  queryNode.onclick = function () {
+    var nodeId = document.querySelector("#node_id").value;
+    generator(nodeId);
+  }
+
+  function generator(nodeId) {
+
+  }
+
+  var a=6;
+  setTimeout(function(){
+
+    console.log(a);
+    a=666;
+
+  },1000)
+  a=66
+
+  var foo={n:1};
+  var bar=foo;
+  foo.x=foo={n:2};
+  console.log(foo)
+  console.log(bar)
+</script>
+</html>

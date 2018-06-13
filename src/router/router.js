@@ -1,6 +1,7 @@
 import App from '../App'
 
 const home = r => require.ensure([], () => r(require('../page/home/home')), 'home')
+const hscode = r => require.ensure([], () => r(require('../page/hscode/hscode')), 'hscode')
 
 export default [{
       path: '/',
@@ -15,6 +16,10 @@ export default [{
           name: 'home',
           component: home,
           meta: {keepAlive:true}
+        },
+        {
+          path:'/hsCode/hsCodeList',
+          component:hscode
         }
 
       ]

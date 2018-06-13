@@ -1,4 +1,5 @@
 
+//this.$route 是当前路由 this.$router 是整个项目的路由
 const foo = {
     template:'<h1>this is foo {{$route.params.id}}{{name}}</h1>',
     //动态路由匹配 用的同一组件 不会再次触发钩子函数 用watch监控 或beforeRouteUpdate 监控

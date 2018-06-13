@@ -7,7 +7,7 @@ const tabMenuList = [
     id: 'hscode',
     name: 'HS编码',
     imageUrl: baseImgUrl + 'fuwu/hscode.png',
-    pageUrl: loadPageUrl + "hsCode/hsCodeQueryList.html"
+    pageUrl: loadPageUrl + "/hsCode/hsCodeList"
   },
   {
     id: 'decl',

@@ -29,8 +29,8 @@
 
 <script>
   import {mapGetters,mapActions} from 'vuex'
-  import  * as _ from '../../config/mUtils'
-  import * as fetch from '../../fetch'
+  import  * as _ from '@/config/mUtils'
+  import * as fetch from '@/fetch'
   export default {
   name:'userLogin',
   data(){

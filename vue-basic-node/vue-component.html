@@ -9,6 +9,7 @@
     <div>
       <div>
         <h1>全局组件的调用</h1>
+        <span>{{getKill}}</span>
         <!--select 会被替换掉-->
         <select is="globalComponent"></select>
         <!--不能是globalComponent 否则报错-->
@@ -187,11 +188,12 @@
     }
   }
 
-  new Vue({
+ var self = new Vue({
     el:'#app',
     data:function(){
       return {
-        kill:'yjs'
+        kill:'yjs',
+        getKill:"555555555"
       }
     },
     components:{

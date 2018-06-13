@@ -1,5 +1,4 @@
 
-
 使用vue.js + vue-router 创建单页面应用
 通过组合组件组成应用程序 把vue-router加进来
 页面配置路由

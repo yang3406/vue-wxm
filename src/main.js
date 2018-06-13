@@ -5,6 +5,10 @@ import store from './vuex'
 import routes from './router/router'
 import {routerMode} from './config/env'
 import './config/rem'
+import MintUI from 'mint-ui'
+//样式需要单独引用
+import 'mint-ui/lib/style.css'
+
 
 //点击事件 移动端有300ms的延迟 使用双击
 if(FastClick in document){
@@ -17,6 +21,7 @@ if(FastClick in document){
 Vue.config.productionTip = false
 
 Vue.use(VueRouter);
+Vue.use(MintUI)
 Vue.config.debug =true
 
 const router = new VueRouter({

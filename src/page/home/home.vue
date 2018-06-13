@@ -16,10 +16,12 @@
         <div class="menu">
           <ul class="outter-ul">
             <li class="outter-li" v-for="(item,index) in tabMenuList" :key="index">
-              <ul>
-                <li><img :src="item.imageUrl"></img></li>
-                <li>{{item.name}}</li>
-              </ul>
+              <router-link :to=item.pageUrl>
+                <ul>
+                  <li><img :src="item.imageUrl"></img></li>
+                  <li>{{item.name}}</li>
+                </ul>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -125,7 +127,6 @@
         if(openId){
          const res = fetch.autoLogin(openId)
            .then(res => {
-             console.log(res);
              if(res.status == 1){
                this.setUserInfo(res);
              }

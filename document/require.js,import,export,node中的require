@@ -161,4 +161,10 @@ getA.sex;
 getA.sayHi("hello world")
 
 
-COMMON JS 主要用于服务器 如seaJS
+COMMON JS 主要用于服务器 如seaJS  NODE(应用由模块组成)
+通过model.exports导出变量或函数
+通过require引用
+具体请看
+https://www.cnblogs.com/fayin/p/6831071.html
+对 注意，不能直接将exports变量指向一个值，因为这样等于切断了exports与module.exports的联系。
+这个是因为module.exports默认导出的是一个空对象,对象为引用类型,如果变为基本类型,就不能进行关联改变
