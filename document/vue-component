@@ -59,8 +59,8 @@ Vue.component('child',{
  //声明props 驼峰式
  props:['myMessage'],
  //像data一样,prop可以在组件模板内使用,
- //并且,还可以在VM实例中通过this.message使用
- templage:'<span>{{message}}</span>'
+ //并且,还可以在VM实例中通过this.myMessage使用
+ template:'<span>{{myMessage}}</span>'
 })
 
 在父组件
